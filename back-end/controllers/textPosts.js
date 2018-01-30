@@ -10,8 +10,9 @@ function index(req, res) {
 
 function create(req, res) {
   TextPost.create(req.body, function(err, post) {
-    if (err) { console.log('error', err); }
-    res.json(post);
+    console.log(req.body);
+    if (err) res.send(err);
+    else res.json(post);
   });
 }
 
@@ -23,23 +24,17 @@ function show(req, res) {
 }
 
 function update(req, res) {
-  TextPost.findById(req.params.post_id, function(err, foundPost) {
-    if (err) { console.log('albumsController.update error', err); }
-    foundPost.title = req.body.title;
-    foundPost.content = req.body.content;
-    foundPost.thumbnail_image_url = req.body.thumbnail_image_url;
-    foundPost.save(function(err, savedPost) {
-      if (err) { console.log('saving altered post failed'); }
-      res.json(savedPost);
-    });
-  });
-  console.log(res);
+  TextPost.findByIdAndUpdate(req.params.post_id,
+     {$set: req.body}, { 'new': true }, function(err, post){  // without {'new': true}, returns the old comment, not updated one
+     if (err) res.send(err);
+     else res.json(post);
+   });
 }
 
 function destroy(req, res) {
   TextPost.findByIdAndRemove(req.params.post_id, function(err, deletedPost) {
     if (err) { console.log('error', err); }
-    res.send(200);
+    res.send('Post deleted!');
   });
 }
 

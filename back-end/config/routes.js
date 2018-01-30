@@ -4,7 +4,7 @@ var textPostsController = require('../controllers/textPosts');
 var commentsController = require('../controllers/comments');
 
 //Post Routes
-router.get('/api/posts', textPostsController.index);
+router.get('/api/posts', textPostsController.index); // gets the function index from textPostsController
 router.post('/api/posts', textPostsController.create);
 router.get('/api/posts/:post_id', textPostsController.show);
 router.put('/api/posts/:post_id', textPostsController.update);
