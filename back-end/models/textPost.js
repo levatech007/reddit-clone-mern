@@ -3,11 +3,11 @@ var mongoose = require('mongoose'),
     Comment = require('./comment');
 
 var TextPostSchema = new Schema({
-	title: String, 
-	content: String, 
-	thumbnail_image_url: String, 
+	title: String,
+	content: String,
+	thumbnail_image_url: String,
 	votes: Number,
-	comments: [Comment.Schema] 
+	comments: [Comment.schema] 
 });
 
 var TextPost = mongoose.model('TextPost', TextPostSchema);
