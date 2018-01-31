@@ -9,8 +9,6 @@ class SinglePostPage extends Component {
     this.onCommentSubmit = this.onCommentSubmit.bind(this);
   }
 
-
-
   componentDidMount() {
     const { match: { params } } = this.props;
     console.log(params.post_id)
@@ -41,7 +39,7 @@ class SinglePostPage extends Component {
         return res.json()
     }).then((json) => {
       console.log(json)
-      // this.setState({  });
+      this.setState({ onePost: { comments: this.state.onePost.comments.concat(json)} });
       this.refs.content.value = ""
     });
   }
@@ -50,22 +48,23 @@ class SinglePostPage extends Component {
     return (
             <div className="container">
               <div className="row">
-                <div className="col-md-4">
+                <div className="col-md-3">
                   <img height="150px" width="150px" src={ this.state.onePost.thumbnail_image_url }/>
                 </div>
-                <div className="col-md-8">
+                <div className="col-md-9">
                   <h2>{ this.state.onePost.title }</h2>
                   <p>{ this.state.onePost.content}</p>
                 </div>
               </div>
-                {/* <p>Comments: { this.state.onePost.comments}</p> */}
+              <div className="row">
                 <h2>Comments:</h2>
                 <ul>
                 { (this.state.onePost.comments) && this.state.onePost.comments.map(comment => {
-                      return <li>{ comment.content }, { comment.votes }</li>
+                      return <li key={comment._id}>{ comment.content }, { comment.votes }</li>
                     })
                 }
-              </ul>
+                </ul>
+              </div>
               <h2>Add a new comment:</h2>
               <div className="row justify-content-md-center">
                 <form className="form-group" onSubmit={ this.onCommentSubmit } >
@@ -74,7 +73,6 @@ class SinglePostPage extends Component {
                 </form>
               </div>
           </div>
-
     );
   }
 }

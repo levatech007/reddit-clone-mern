@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import SinglePostPage from './SinglePostPage'
 import { Link } from 'react-router-dom'
 
 class HomePage extends Component {
@@ -13,13 +12,11 @@ class HomePage extends Component {
   }
 
   onDeletePost(post_id) {
-    //make delete request to http://localhost:8080/api/posts/${post_id}
     fetch(`http://localhost:8080/api/posts/${post_id}`, {
       method: 'DELETE'
     }).then((res) => {
       let allPosts = this.state.allPosts.filter((onePost) => {
         return onePost._id !== post_id
-        // or return oneTodo._id !== toBeDeleted._id
       })
       this.setState({ allPosts: allPosts })
     });
