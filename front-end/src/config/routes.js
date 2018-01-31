@@ -6,6 +6,6 @@ import SinglePostPage from '../pages/SinglePostPage'
 export default (
   <Switch>
       <Route exact path='/' component={ Home }/>
-      <Route path='/singlepost' component={ SinglePostPage }/>
+      <Route path='/posts/:post_id' component={ SinglePostPage }/>
     </Switch>
 )
